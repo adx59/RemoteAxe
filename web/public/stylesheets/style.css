@@ -10,6 +10,10 @@ body {
   justify-content: center;
 }
 
+.log{
+    width: 50%;
+}
+
 a {
   color: rgb(3, 144, 199); 
 }
@@ -24,11 +28,6 @@ a {
 h3{
 
 color: rgb(66, 66, 66);
-font-size: 10px;
+font-size: 15px;
 
 }
-
-
-
-
-
