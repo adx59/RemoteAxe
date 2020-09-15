@@ -4,10 +4,9 @@ var createError = require('http-errors'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
   cors = require('cors'),
-  mongoose = require("mongoose");
+  mongoose = require('mongoose');
 
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
+var indexRouter = require('./routes');
 
 var app = express();
 
@@ -24,7 +23,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
+
+require('./models');
+
+if (process.env.PRODUCTION) {
+  mongoose.connect(process.env.MONGODB_URI)
+} else {
+  mongoose.connect('mongodb://localhost:27017');
+  mongoose.set('debug', true);
+}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

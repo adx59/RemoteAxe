@@ -6,9 +6,9 @@ var router = express.Router();
 
 router.use(express.json());
 
-/* POST login. */
+/* POST registration */
 router.post('/', function(req, res, next) {
-  console.log(req.body)
+  console.log(req.body);
   res.send(req.body);
 });
 
