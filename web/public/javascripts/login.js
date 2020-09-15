@@ -22,7 +22,10 @@ $(document).ready( () => {
             case true:
                 if ($("#password").val() != $("#confPassword").val()) {
                     alert("Passwords must match!")
-                } else {
+                } else if(!$("#password").val() || !$("#confPassword").val() || !$("#username").val()){
+                    alert("Please fill all fields!")
+                }
+                    else {
                     $.ajax({
                         type: 'POST',
                         url: "/api/register",
