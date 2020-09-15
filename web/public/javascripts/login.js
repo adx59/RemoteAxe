@@ -1,5 +1,4 @@
 var registration = false;
-var switched = false;
 
 $(document).ready( () => {
     console.log("dom loaded");
@@ -42,23 +41,19 @@ $(document).ready( () => {
         }
     });
     $("#switcher").click((event) => {
-        switch (registration,switched) {
+        switch (registration) {
             case false:
                 registration = true;
-                switched = true;
                 $("#loginForm").append(
                     "<input class=\"log\" type=\"password\" id=\"confPassword\" class=\"form-control mb-3\"\
                     name=\"username\" placeholder=\"Confirm password\" required>"
                 );
                 $("#submit").html("Register");
                 $("#switcher").html("Already registered? Log in");
-                
-                
-                
+
                 break;
             case true:
                 registration = false;
-                switched = false;   
                 $("#confPassword").remove();
                 $("#submit").html("Login");
                 $("#switcher").html("Not Registered? Register Here");
