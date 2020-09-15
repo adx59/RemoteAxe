@@ -5,6 +5,10 @@ $(document).ready( () => {
     $("#submit").click((event) => {
         switch (registration) {
             case false:
+            if(!$("#password").val()|| !$("#username").val()){
+                    alert("Please fill all fields!")
+            }
+            else {
                 $.ajax({
                     type: 'POST',
                     url: "/api/login",
@@ -18,6 +22,7 @@ $(document).ready( () => {
                 }, (err) => {
                     console.log(err);
                 });
+            }
                 break;
             case true:
                 if ($("#password").val() != $("#confPassword").val()) {
