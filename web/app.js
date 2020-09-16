@@ -5,8 +5,7 @@ var createError = require('http-errors'),
   logger = require('morgan'),
   cors = require('cors'),
   mongoose = require('mongoose');
-
-var indexRouter = require('./routes');
+require('dotenv').config();
 
 var app = express();
 
@@ -22,16 +21,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true}).then( (r) => {
+  console.log(`connected to mongo`);
+}).catch( (e) => {
+  console.log(`failed to connect to mongo, ${e}`);
+});
+mongoose.set('debug', process.env.DEBUG);
 
-require('./models');
+require('./models/User');
 
-if (process.env.PRODUCTION) {
-  mongoose.connect(process.env.MONGODB_URI)
-} else {
-  mongoose.connect('mongodb://localhost:27017');
-  mongoose.set('debug', true);
-}
+app.use('/', require('./routes'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
